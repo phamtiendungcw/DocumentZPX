@@ -626,7 +626,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 - **End-to-End Testing**: Cypress, Test critical user flows, UI/UX validation, API contract tests.
 - **Test Scenarios**: User registration, Product search, Order placement, Payment processing, Admin operations.
 
-### Registration Service
+### 5.5. Registration Service
 
 - **Name Static class**: [ProjectName]ServiceRegistration.cs
 - **Register Services**: Use `IServiceCollection` to register all services, repositories, and configurations.
