@@ -34,6 +34,18 @@ Xây dựng nền tảng cửa hàng bán lẻ trực tuyến ZylPelox (ZPX) v�
 
 > **_Chú thích:_** _Các giới hạn được xác định để đặt kỳ vọng rõ ràng và đảm bảo việc lập kế hoạch tài nguyên phù hợp._
 
+### 1.4. Yêu cầu phi chức năng (Thêm mới)
+
+- **Hiệu năng**:
+  - Response time < 200ms cho API calls
+  - Page load time < 3s
+  - Hỗ trợ 1000 concurrent users
+- **Khả dụng**: 99.9% uptime
+- **Bảo mật**: Tuân thủ OWASP Top 10, PCI DSS
+- **Khả năng mở rộng**: Horizontal scaling ready
+
+> **_Chú thích:_** _Yêu cầu phi chức năng được thiết kế để đảm bảo hệ thống hoạt động hiệu quả và an toàn trong môi trường sản xuất._
+
 ---
 
 ## 2. YÊU CẦU CHỨC NĂNG (TÍNH NĂNG HỆ THỐNG)
@@ -142,6 +154,62 @@ Xây dựng nền tảng cửa hàng bán lẻ trực tuyến ZylPelox (ZPX) v�
 
 > **_Chú thích:_** _Hệ thống phân quyền sẽ được thiết kế để linh hoạt và chi tiết, cho phép tạo các vai trò tùy chỉnh theo nhu cầu cụ thể của doanh nghiệp._
 
+## 2.10. Wishlist & So sánh sản phẩm
+
+- **Danh sách yêu thích**: Lưu sản phẩm để mua sau
+- **So sánh sản phẩm**: So sánh tối đa 4 sản phẩm cùng lúc
+- **Thông báo giảm giá**: Alert khi sản phẩm trong wishlist giảm giá
+- **Chia sẻ wishlist**: Tạo link chia sẻ cho người khác
+
+> **_Chú thích:_** _Các tính năng này giúp tăng cường trải nghiệm người dùng, khuyến khích họ quay lại mua hàng._
+
+## 2.11. Tìm kiếm & Lọc nâng cao
+
+- **Elasticsearch integration**: Full-text search với typo tolerance
+- **Faceted search**: Lọc đa tiêu chí động
+- **Search suggestions**: Gợi ý realtime khi gõ
+- **Visual search**: Tìm kiếm bằng hình ảnh (AI-powered)
+- **Voice search**: Tìm kiếm bằng giọng nói
+
+> **_Chú thích:_** _Tính năng tìm kiếm và lọc nâng cao sẽ giúp khách hàng tìm thấy sản phẩm nhanh chóng, cải thiện trải nghiệm mua sắm._
+
+## 2.12. Hệ thống Recommendation
+
+- **Personalized recommendations**: Dựa trên lịch sử và hành vi
+- **Collaborative filtering**: "Khách hàng khác cũng mua"
+- **Content-based filtering**: Sản phẩm tương tự
+- **Trending products**: Xu hướng theo thời gian thực
+
+> **_Chú thích:_** _Hệ thống gợi ý sẽ sử dụng machine learning để cải thiện độ chính xác theo thời gian, giúp tăng doanh thu và giữ chân khách hàng._
+
+## 2.13. Multi-channel Support
+
+- **POS Integration**: Đồng bộ với cửa hàng offline
+- **Social commerce**: Bán hàng qua Facebook, Instagram
+- **Marketplace integration**: Kết nối Shopee, Lazada, Tiki
+- **B2B Portal**: Cổng riêng cho khách hàng doanh nghiệp
+
+> **_Chú thích:_** _Hỗ trợ đa kênh giúp mở rộng thị trường và tăng cường khả năng tiếp cận khách hàng._
+
+## 2.14. Analytics & Business Intelligence
+
+- **Real-time dashboard**: Theo dõi KPIs quan trọng
+- **Cohort analysis**: Phân tích nhóm khách hàng
+- **Funnel analysis**: Phân tích chuyển đổi
+- **A/B Testing framework**: Tối ưu hóa liên tục
+- **Predictive analytics**: Dự báo doanh thu, tồn kho
+
+> **_Chú thích:_** _Module phân tích sẽ cung cấp cái nhìn sâu sắc về hiệu suất kinh doanh, giúp đưa ra quyết định dựa trên dữ liệu._
+
+## 2.15. Customer Service
+
+- **Live chat**: Tích hợp chatbot AI
+- **Ticket system**: Quản lý yêu cầu hỗ trợ
+- **FAQ & Knowledge base**: Tự phục vụ
+- **Video call support**: Hỗ trợ trực tiếp cho VIP
+
+> **_Chú thích:_** _Hệ thống dịch vụ khách hàng sẽ giúp nâng cao trải nghiệm và giữ chân khách hàng, đồng thời giảm tải cho đội ngũ hỗ trợ._
+
 ---
 
 ## 3. KIẾN TRÚC & CÔNG NGHỆ
@@ -193,7 +261,7 @@ flowchart LR
     subgraph UserFacing ["User Facing"]
         direction LR
         USERS["Users<br/>(Web/Mobile)"]
-        FRONTEND["ZylPelox.ZPX.UI<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
+        FRONTEND["zylpelox-zpx-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
         GATEWAY["API Gateway<br><span style='font-size:small; opacity:0.8;'>Optional</span>"]
     end
 
@@ -306,7 +374,7 @@ flowchart LR
 - **RxJS**: Lập trình reactive
 - **Angular Flex Layout**: Layout phản hồi
 - **NgxTranslate**: Đa ngôn ngữ
-- **TailwindCSS**: là một bộ sưu tập các thành phần giao diện người dùng đẹp
+- **Tailwind CSS**: Thiết kế giao diện
 
 > **_Chú thích:_** _Các thư viện frontend được chọn để cung cấp trải nghiệm người dùng nhất quán và hiệu suất cao._
 
@@ -394,6 +462,197 @@ flowchart LR
 ```
 
 > _**Chú thích:**_ _Cấu trúc tuân theo Clean Architecture, phụ thuộc hướng vào Core._
+
+## 3.6. Caching Architecture (Chi tiết hơn)
+
+```csharp
+// Hybrid Cache Configuration
+public class CacheConfiguration
+{
+    public class CacheSettings
+    {
+        public int L1CacheSizeLimit { get; set; } = 100_000; // 100MB
+        public TimeSpan L1DefaultExpiration { get; set; } = TimeSpan.FromMinutes(5);
+        public TimeSpan L2DefaultExpiration { get; set; } = TimeSpan.FromHours(1);
+
+        public Dictionary<string, CachePolicy> Policies { get; set; } = new()
+        {
+            ["Product"] = new() { L1TTL = TimeSpan.FromMinutes(10), L2TTL = TimeSpan.FromHours(2) },
+            ["Category"] = new() { L1TTL = TimeSpan.FromHours(1), L2TTL = TimeSpan.FromDays(1) },
+            ["User"] = new() { L1TTL = TimeSpan.FromMinutes(5), L2TTL = TimeSpan.FromMinutes(30) }
+        };
+    }
+}
+```
+
+## 3.7. Event-Driven Architecture
+
+```mermaid
+graph LR
+    subgraph "Domain Events"
+        A[OrderPlaced] --> B[Event Dispatcher]
+        C[PaymentReceived] --> B
+        D[InventoryUpdated] --> B
+    end
+
+    subgraph "Event Handlers"
+        B --> E[Email Service]
+        B --> F[Inventory Service]
+        B --> G[Analytics Service]
+        B --> H[Notification Service]
+    end
+
+    subgraph "External Systems"
+        E --> I[SendGrid]
+        F --> J[ERP System]
+        G --> K[Google Analytics]
+        H --> L[Firebase FCM]
+    end
+```
+
+> **_Chú thích:_** _Kiến trúc Event-Driven cho phép các phần của hệ thống phản ứng với các sự kiện mà không cần kết nối trực tiếp, giúp giảm độ phụ thuộc và tăng tính mở rộng._
+
+## 3.8. Security Architecture
+
+### Authentication & Authorization Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant API as API Gateway
+    participant Auth as Auth Service
+    participant Redis as Redis Cache
+    participant DB as Database
+
+    C->>API: Login Request
+    API->>Auth: Validate Credentials
+    Auth->>DB: Check User
+    DB-->>Auth: User Data
+    Auth->>Auth: Generate JWT + Refresh Token
+    Auth->>Redis: Store Refresh Token
+    Auth-->>API: Tokens
+    API-->>C: Access + Refresh Tokens
+
+    Note over C,API: Subsequent Requests
+    C->>API: Request + Access Token
+    API->>API: Validate JWT
+    API->>API: Check Permissions
+    API-->>C: Response
+```
+
+> **_Chú thích:_** _Quy trình xác thực sử dụng JWT và Refresh Token để đảm bảo bảo mật và khả năng mở rộng. Redis được sử dụng để lưu trữ Refresh Token, giúp giảm tải cho cơ sở dữ liệu._
+
+## 3.9. Resilience Patterns
+
+### Circuit Breaker Implementation
+
+```csharp
+public class PaymentServiceCircuitBreaker
+{
+    private readonly ICircuitBreaker _circuitBreaker;
+
+    public PaymentServiceCircuitBreaker()
+    {
+        _circuitBreaker = new CircuitBreaker(
+            failureThreshold: 5,
+            samplingDuration: TimeSpan.FromMinutes(1),
+            minimumThroughput: 10,
+            durationOfBreak: TimeSpan.FromMinutes(5)
+        );
+    }
+
+    public async Task<PaymentResult> ProcessPaymentAsync(PaymentRequest request)
+    {
+        return await _circuitBreaker.ExecuteAsync(async () =>
+        {
+            // Call external payment service
+            return await ExternalPaymentService.ProcessAsync(request);
+        });
+    }
+}
+```
+
+> **_Chú thích:_** _Circuit Breaker giúp ngăn chặn các cuộc gọi đến dịch vụ bên ngoài khi nó gặp lỗi liên tục, bảo vệ hệ thống khỏi quá tải._
+
+### Retry Policy
+
+```csharp
+services.AddHttpClient<IShippingService, ShippingService>()
+    .AddPolicyHandler(GetRetryPolicy())
+    .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .WaitAndRetryAsync(
+            3,
+            retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+            onRetry: (outcome, timespan, retryCount, context) =>
+            {
+                var logger = context.Values["logger"] as ILogger;
+                logger?.LogWarning($"Retry {retryCount} after {timespan} seconds");
+            });
+}
+```
+
+> **_Chú thích:_** _Retry Policy giúp tự động thử lại các cuộc gọi HTTP khi gặp lỗi tạm thời, cải thiện độ tin cậy của hệ thống._
+
+## 3.10. Performance Optimization
+
+### Database Query Optimization
+
+```csharp
+// Sử dụng Specification Pattern với EF Core
+public class ProductWithCategorySpecification : Specification<Product>
+{
+    public ProductWithCategorySpecification(bool includeVariants = false)
+    {
+        Query.Include(x => x.Category)
+             .Include(x => x.Brand)
+             .Where(x => x.IsActive && !x.IsDeleted);
+
+        if (includeVariants)
+        {
+            Query.Include(x => x.Variants.Where(v => v.IsActive));
+        }
+
+        // Sử dụng AsSplitQuery cho multiple includes
+        Query.AsSplitQuery();
+    }
+}
+
+// Bulk operations
+public async Task BulkUpdateInventoryAsync(List<InventoryUpdate> updates)
+{
+    await _context.BulkUpdateAsync(updates, options =>
+    {
+        options.BatchSize = 1000;
+        options.UseTempDB = true;
+    });
+}
+```
+
+> **_Chú thích:_** _Sử dụng Specification Pattern giúp tái sử dụng logic truy vấn, trong khi Bulk Operations giúp tối ưu hóa các thao tác cập nhật hàng loạt._
+
+### Response Compression
+
+```csharp
+// Program.cs
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Optimal;
+});
+```
+
+> **_Chú thích:_** _Response Compression giúp giảm kích thước dữ liệu trả về, cải thiện tốc độ tải trang và giảm băng thông._
 
 ---
 
@@ -592,10 +851,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 ### 4.5. Frontend Architecture (`ZylPelox.ZPX.UI`)
 
-- **Initialization Statement**:
-  ```bash
+- **Terminal**:
+
+  ```terminal
   ng new zylpelox-zpx-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZylPelox.ZPX.UI
   ```
+
 - **Cấu trúc**: Core Module, Shared Module, Feature Modules (lazy-loaded).
 - **State Management**: NgRx (cho state phức tạp/toàn cục), Services + RxJS (cho state đơn giản), Local component state.
 - **UI Components**: Base trên Angular Material, Custom components mở rộng, Responsive (Flex Layout).
@@ -699,6 +960,349 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 - Testing & Refinement: 1 month
 - Enhanced Features: 3 months
 - Advanced Features: 3 months
+
+## 7.3. Agile Implementation Details
+
+### Sprint Planning Template
+
+```markdown
+## Sprint [Number] Planning - [Start Date] to [End Date]
+
+### Sprint Goal
+
+[Mô tả mục tiêu chính của sprint]
+
+### Team Capacity
+
+-   Total capacity: [X] story points
+-   Reserved for bugs/support: [Y] story points
+-   Available for new features: [Z] story points
+
+### Committed User Stories
+
+| ID     | Story                       | Priority | Points | Assignee |
+| ------ | --------------------------- | -------- | ------ | -------- |
+| US-001 | As a customer, I want to... | High     | 5      | Dev1     |
+| US-002 | As an admin, I want to...   | Medium   | 3      | Dev2     |
+
+### Technical Tasks
+
+| ID     | Task                 | Related Story | Hours | Assignee |
+| ------ | -------------------- | ------------- | ----- | -------- |
+| TT-001 | Setup Redis caching  | US-001        | 8     | Dev3     |
+| TT-002 | Implement unit tests | US-001        | 4     | Dev1     |
+
+### Definition of Done
+
+-   [ ] Code reviewed by at least 1 peer
+-   [ ] Unit tests written and passing (coverage > 80%)
+-   [ ] Integration tests passing
+-   [ ] Documentation updated
+-   [ ] No SonarLint critical/major issues
+-   [ ] Deployed to staging environment
+-   [ ] Acceptance criteria verified by PO
+```
+
+### Risk Management Matrix
+
+```markdown
+## Project Risks
+
+| Risk                                  | Probability | Impact    | Mitigation Strategy                                                     | Owner             |
+| ------------------------------------- | ----------- | --------- | ----------------------------------------------------------------------- | ----------------- |
+| Third-party payment gateway downtime  | Medium      | High      | Implement multiple payment providers, circuit breaker pattern           | Tech Lead         |
+| Team member leaves project            | Low         | High      | Knowledge sharing sessions, comprehensive documentation                 | PM                |
+| Performance issues with large catalog | Medium      | Medium    | Early performance testing, caching strategy, database optimization      | Backend Lead      |
+| Security vulnerabilities              | Low         | Very High | Regular security audits, OWASP compliance, penetration testing          | Security Champion |
+| Scope creep                           | High        | Medium    | Clear requirements, change control process, regular stakeholder reviews | PO                |
+```
+
+## 7.4. Team Structure & Communication
+
+### RACI Matrix
+
+```markdown
+| Activity                | Product Owner | Tech Lead | Backend Dev | Frontend Dev | QA  | DevOps |
+| ----------------------- | ------------- | --------- | ----------- | ------------ | --- | ------ |
+| Requirements Definition | R/A           | C         | I           | I            | C   | I      |
+| Architecture Design     | C             | R/A       | C           | C            | I   | C      |
+| API Development         | I             | C         | R/A         | C            | C   | I      |
+| UI Development          | I             | C         | I           | R/A          | C   | I      |
+| Testing                 | I             | I         | C           | C            | R/A | I      |
+| Deployment              | I             | C         | I           | I            | C   | R/A    |
+| Monitoring Setup        | I             | C         | I           | I            | I   | R/A    |
+
+R = Responsible, A = Accountable, C = Consulted, I = Informed
+```
+
+### Communication Plan
+
+```markdown
+## Communication Schedule
+
+### Daily
+
+-   **Stand-up Meeting**: 9:30 AM (15 min)
+    -   Format: What I did, What I'll do, Blockers
+    -   Platform: MS Teams/Zoom
+
+### Weekly
+
+-   **Sprint Review** (End of Sprint): Friday 2:00 PM (1 hour)
+-   **Sprint Retrospective**: Friday 3:30 PM (45 min)
+-   **Sprint Planning**: Monday 10:00 AM (2 hours)
+-   **Technical Sync**: Wednesday 2:00 PM (30 min)
+
+### Bi-weekly
+
+-   **Stakeholder Update**: Every other Thursday 3:00 PM
+-   **Architecture Review**: Every other Tuesday 2:00 PM
+
+### Communication Channels
+
+-   **Urgent Issues**: Phone/SMS
+-   **Daily Communication**: Slack/Teams
+-   **Documentation**: Confluence/Wiki
+-   **Code Review**: GitHub/GitLab
+-   **Task Tracking**: Jira/Azure DevOps
+```
+
+## 7.5. Quality Metrics & KPIs
+
+### Development Metrics
+
+```yaml
+quality_metrics:
+    code_quality:
+        - metric: Code Coverage
+          target: "> 80%"
+          measurement: "SonarQube"
+        - metric: Technical Debt Ratio
+          target: "< 5%"
+          measurement: "SonarQube"
+        - metric: Duplicated Lines
+          target: "< 3%"
+          measurement: "SonarQube"
+
+    performance:
+        - metric: API Response Time (P95)
+          target: "< 200ms"
+          measurement: "Application Insights"
+        - metric: Page Load Time
+          target: "< 3s"
+          measurement: "Google PageSpeed"
+        - metric: Database Query Time (P95)
+          target: "< 100ms"
+          measurement: "SQL Profiler"
+
+    reliability:
+        - metric: Uptime
+          target: "> 99.9%"
+          measurement: "Pingdom/UptimeRobot"
+        - metric: Error Rate
+          target: "< 0.1%"
+          measurement: "Application Insights"
+        - metric: Mean Time To Recovery (MTTR)
+          target: "< 30 minutes"
+          measurement: "Incident Reports"
+
+business_metrics:
+    - metric: Sprint Velocity
+      target: "Stable or increasing"
+      measurement: "Jira/Azure DevOps"
+    - metric: Defect Escape Rate
+      target: "< 5%"
+      measurement: "Bug tracking system"
+    - metric: Customer Satisfaction (CSAT)
+      target: "> 4.5/5"
+      measurement: "User surveys"
+```
+
+## 7.6. Release Management
+
+### Release Checklist
+
+```markdown
+## Release [Version] Checklist
+
+### Pre-Release (1 week before)
+
+-   [ ] Feature freeze announced
+-   [ ] All features code complete
+-   [ ] Integration tests passing
+-   [ ] Performance testing completed
+-   [ ] Security scan completed
+-   [ ] Release notes drafted
+
+### Release Day
+
+-   [ ] Final regression testing
+-   [ ] Database migration scripts tested
+-   [ ] Rollback plan documented
+-   [ ] Monitoring alerts configured
+-   [ ] Communication sent to stakeholders
+
+### Post-Release
+
+-   [ ] Smoke tests on production
+-   [ ] Monitor error rates (first 24 hours)
+-   [ ] Gather user feedback
+-   [ ] Document lessons learned
+-   [ ] Update documentation
+```
+
+### Version Numbering Strategy
+
+```plaintext
+MAJOR.MINOR.PATCH-PRERELEASE+BUILD
+
+Examples:
+- 1.0.0 - First stable release
+- 1.1.0 - New features added
+- 1.1.1 - Bug fixes
+- 2.0.0-beta.1 - Breaking changes in beta
+- 1.2.0-rc.1+20230615 - Release candidate with build info
+```
+
+## 7.7. Documentation Standards
+
+### Code Documentation Template
+
+```csharp
+/// <summary>
+/// Processes an order and handles payment transaction.
+/// </summary>
+/// <param name="orderId">The unique identifier of the order to process.</param>
+/// <param name="paymentDetails">Payment information including method and credentials.</param>
+/// <returns>A task that represents the asynchronous operation.
+/// The task result contains the order processing result.</returns>
+/// <exception cref="ZpxNotFoundException">Thrown when the order is not found.</exception>
+/// <exception cref="ZpxPaymentException">Thrown when payment processing fails.</exception>
+/// <example>
+/// <code>
+/// var result = await orderService.ProcessOrderAsync(
+///     orderId: Guid.Parse("123e4567-e89b-12d3-a456-426614174000"),
+///     paymentDetails: new PaymentDetails { ... }
+/// );
+/// </code>
+/// </example>
+public async Task<OrderProcessingResult> ProcessOrderAsync(
+    Guid orderId,
+    PaymentDetails paymentDetails)
+{
+    // Implementation
+}
+```
+
+### API Documentation Standard
+
+```yaml
+openapi: 3.0.3
+info:
+    title: ZylPelox API
+    version: 1.0.0
+    description: |
+        # Introduction
+        ZylPelox API provides comprehensive e-commerce functionality.
+
+        ## Authentication
+        Use Bearer token authentication. Obtain token via /auth/login endpoint.
+
+        ## Rate Limiting
+        - Anonymous: 100 requests/hour
+        - Authenticated: 1000 requests/hour
+
+        ## Pagination
+        Use `pageNumber` and `pageSize` query parameters.
+
+paths:
+    /api/v1/products:
+        get:
+            summary: Get products list
+            operationId: getProducts
+            tags:
+                - Products
+            parameters:
+                - $ref: "#/components/parameters/PageNumber"
+                - $ref: "#/components/parameters/PageSize"
+                - name: categoryId
+                  in: query
+                  schema:
+                      type: string
+                      format: uuid
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ProductListResponse"
+```
+
+## 7.8. Budget & Resource Planning
+
+### Development Cost Estimation
+
+```markdown
+## Project Budget Breakdown
+
+### Human Resources (6 months)
+
+| Role               | Count | Monthly Cost | Total        |
+| ------------------ | ----- | ------------ | ------------ |
+| Tech Lead          | 1     | $8,000       | $48,000      |
+| Backend Developer  | 3     | $6,000       | $108,000     |
+| Frontend Developer | 2     | $5,500       | $66,000      |
+| QA Engineer        | 1     | $4,500       | $27,000      |
+| DevOps (part-time) | 0.5   | $6,000       | $18,000      |
+| **Subtotal**       |       |              | **$267,000** |
+
+### Infrastructure & Tools
+
+| Item                  | Monthly Cost | 6-Month Total |
+| --------------------- | ------------ | ------------- |
+| Azure (Dev/Test/Prod) | $2,500       | $15,000       |
+| Third-party services  | $500         | $3,000        |
+| Development tools     | $300         | $1,800        |
+| **Subtotal**          |              | **$19,800**   |
+
+### Contingency (15%)
+
+$43,020
+
+### **Total Project Budget**
+
+$329,820
+```
+
+## 7.9. Success Criteria
+
+### MVP Success Metrics
+
+```markdown
+## Definition of Success - MVP Phase
+
+### Technical Success
+
+-   [ ] All critical features implemented and tested
+-   [ ] Performance meets defined SLAs
+-   [ ] Security audit passed with no critical issues
+-   [ ] 99.9% uptime achieved in first month
+
+### Business Success
+
+-   [ ] 1000+ registered users in first month
+-   [ ] 100+ orders processed successfully
+-   [ ] < 2% cart abandonment rate improvement
+-   [ ] Positive feedback from beta users (>80% satisfaction)
+
+### Team Success
+
+-   [ ] On-time delivery (±10% of estimated timeline)
+-   [ ] Within budget (±15% of allocated budget)
+-   [ ] Team satisfaction score > 4/5
+-   [ ] Knowledge transfer completed
+```
 
 ---
 
