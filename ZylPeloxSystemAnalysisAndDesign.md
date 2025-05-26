@@ -193,7 +193,7 @@ flowchart LR
     subgraph UserFacing ["User Facing"]
         direction LR
         USERS["Users<br/>(Web/Mobile)"]
-        FRONTEND["zylpelox-zpx-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
+        FRONTEND["ZylPelox.ZPX.UI<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
         GATEWAY["API Gateway<br><span style='font-size:small; opacity:0.8;'>Optional</span>"]
     end
 
@@ -306,6 +306,7 @@ flowchart LR
 - **RxJS**: Lập trình reactive
 - **Angular Flex Layout**: Layout phản hồi
 - **NgxTranslate**: Đa ngôn ngữ
+- **TailwindCSS**: là một bộ sưu tập các thành phần giao diện người dùng đẹp
 
 > **_Chú thích:_** _Các thư viện frontend được chọn để cung cấp trải nghiệm người dùng nhất quán và hiệu suất cao._
 
@@ -591,7 +592,10 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 ### 4.5. Frontend Architecture (`ZylPelox.ZPX.UI`)
 
-- **Terminal**: ng new zylpelox-zpx-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZylPelox.ZPX.UI
+- **Initialization Statement**:
+  ```bash
+  ng new zylpelox-zpx-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZylPelox.ZPX.UI
+  ```
 - **Cấu trúc**: Core Module, Shared Module, Feature Modules (lazy-loaded).
 - **State Management**: NgRx (cho state phức tạp/toàn cục), Services + RxJS (cho state đơn giản), Local component state.
 - **UI Components**: Base trên Angular Material, Custom components mở rộng, Responsive (Flex Layout).
