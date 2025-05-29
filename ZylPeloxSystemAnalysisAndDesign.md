@@ -261,7 +261,7 @@ flowchart LR
     subgraph UserFacing ["User Facing"]
         direction LR
         USERS["Users<br/>(Web/Mobile)"]
-        FRONTEND["ZylPelox.ZPX.UI<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
+        FRONTEND["zylpelox-zpx-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
         GATEWAY["API Gateway<br><span style='font-size:small; opacity:0.8;'>Optional</span>"]
     end
 
