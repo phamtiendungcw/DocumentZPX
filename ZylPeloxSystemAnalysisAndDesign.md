@@ -34,7 +34,7 @@ Xây dựng nền tảng cửa hàng bán lẻ trực tuyến ZylPelox (ZPX) v�
 
 > **_Chú thích:_** _Các giới hạn được xác định để đặt kỳ vọng rõ ràng và đảm bảo việc lập kế hoạch tài nguyên phù hợp._
 
-### 1.4. Yêu cầu phi chức năng (Thêm mới)
+### 1.4. Yêu cầu phi chức năng
 
 - **Hiệu năng**:
   - Response time < 200ms cho API calls
@@ -210,14 +210,20 @@ Xây dựng nền tảng cửa hàng bán lẻ trực tuyến ZylPelox (ZPX) v�
 
 > **_Chú thích:_** _Hệ thống dịch vụ khách hàng sẽ giúp nâng cao trải nghiệm và giữ chân khách hàng, đồng thời giảm tải cho đội ngũ hỗ trợ._
 
+## 2.16. Quản lý Identity Database và Persistence Database
+
+- **Identity Database**: Quản lý thông tin người dùng, xác thực và phân quyền
+- **Persistence Database**: Lưu trữ dữ liệu ứng dụng, bao gồm sản phẩm, đơn hàng, khách hàng
+- **Tách biệt rõ ràng**: Hai cơ sở dữ liệu này sẽ được tách biệt để đảm bảo hiệu suất và bảo mật, đồng thời dễ dàng mở rộng trong tương lai
+
 ---
 
 ## 3. KIẾN TRÚC & CÔNG NGHỆ
 
 ### 3.1. Stack Công nghệ
 
-- **Backend**: ASP.NET Core 6+
-- **Frontend**: Angular 16+ (project `zylpelox-zpx-ui`)
+- **Backend**: ASP.NET Core 6 (SDK 6.0.428)
+- **Frontend**: Angular 16 (Angular CLI 16.2.16)
 - **Database**: SQL Server
 - **Cache**: Redis + HybridCache (In-Memory + Distributed)
 - **Search (Optional)**: Elasticsearch
@@ -661,7 +667,7 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
 ### 4.1. Domain Design
 
 - **Entities & Base Classes**: `BaseEntity` (Guid Id), `BaseAuditableEntity` (thêm CreatedAt, CreatedBy, LastModifiedAt, LastModifiedBy, IsDeleted...).
-- **Aggregate Roots**: Product, Order, Customer, Inventory, Promotion (quản lý các entity liên quan như một đơn vị nhất quán).
+- **Aggregate Roots**: để quản lý các entity liên quan như một đơn vị nhất quán.
 - **Junction/Intermediate Entities**: ProductCategory, ProductTag, OrderDiscount... (quản lý quan hệ N-N).
 - **Value Objects**: Money, Address, DateRange, ContactInformation... (bất biến, định nghĩa bởi thuộc tính).
 - **Domain Services**: OrderProcessingService, PricingService... (chứa logic nghiệp vụ phức tạp không thuộc entity nào).
