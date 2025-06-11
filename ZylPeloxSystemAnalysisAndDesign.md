@@ -902,6 +902,13 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 - **Name Static class**: [ProjectName]ServiceRegistration.cs
 - **Register Services**: Use `IServiceCollection` to register all services, repositories, and configurations.
 
+### 5.6. Nuget Package
+
+- **Domain Layer**: Ardalis.GuardClauses, MediatR.Contracts,...
+- **Application Layer**: MediatR, FluentValidation, AutoMapper, FluentResults,...
+- **Infrastructure Layer**: Serilog,...
+- **Server Layer**: Serilog.AspNetCore,...
+
 ---
 
 ## 6. QUY TRÌNH PHÁT TRIỂN & VẬN HÀNH
