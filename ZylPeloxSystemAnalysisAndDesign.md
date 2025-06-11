@@ -1,10 +1,10 @@
-# 📑 Phân tích và Thiết kế Hệ thống ZylPelox (ZPX) - VERSION 1.3
+# 📑 Phân tích và Thiết kế Hệ thống ZylPelox (ZPX) - VERSION 1.2
 
 **Mã dự án:** ZPX-ECOM
 **Ngày khởi tạo:** 10-02-2023
-**Ngày cập nhật:** 14-04-2025
+**Ngày cập nhật:** 14-04-2024
 **Tác giả:** phamtiendungcw
-**Phiên bản:** 1.3
+**Phiên bản:** 1.2
 
 ---
 
@@ -222,8 +222,9 @@ Xây dựng nền tảng cửa hàng bán lẻ trực tuyến ZylPelox (ZPX) v�
 
 ### 3.1. Stack Công nghệ
 
-- **Backend**: ASP.NET Core 6 (SDK 6.0.428)
+- **Backend**: ASP.NET Core 6 (SDK 6.0.428, Runtime 6.0.36)
 - **Frontend**: Angular 16 (Angular CLI 16.2.16)
+- **Node.js**: Phiên bản 18.20.8
 - **Database**: SQL Server
 - **Cache**: Redis + HybridCache (In-Memory + Distributed)
 - **Search (Optional)**: Elasticsearch
@@ -267,16 +268,16 @@ flowchart LR
     subgraph UserFacing ["User Facing"]
         direction LR
         USERS["Users<br/>(Web/Mobile)"]
-        FRONTEND["zylpelox-zpx-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
+        FRONTEND["zpx-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
         GATEWAY["API Gateway<br><span style='font-size:small; opacity:0.8;'>Optional</span>"]
     end
 
     subgraph BackendServices ["Backend Services (ZPX System)"]
         direction TB
-        API["ZylPelox.ZPX.Server<br/><span style='font-size:small; opacity:0.8;'>ASP.NET Core API</span>"]
-        APP["ZylPelox.ZPX.Application<br/><span style='font-size:small; opacity:0.8;'>Business Logic, CQRS</span>"]
-        DOMAIN["ZylPelox.ZPX.Domain<br/><span style='font-size:small; opacity:0.8;'>Entities, Core Logic</span>"]
-        INFRA["ZylPelox.ZPX.Infrastructure<br/><span style='font-size:small; opacity:0.8;'>Implementation Details</span>"]
+        API["ZPX.Server<br/><span style='font-size:small; opacity:0.8;'>ASP.NET Core API</span>"]
+        APP["ZPX.Application<br/><span style='font-size:small; opacity:0.8;'>Business Logic, CQRS</span>"]
+        DOMAIN["ZPX.Domain<br/><span style='font-size:small; opacity:0.8;'>Entities, Core Logic</span>"]
+        INFRA["ZPX.Infrastructure<br/><span style='font-size:small; opacity:0.8;'>Implementation Details</span>"]
     end
 
     subgraph ExternalDependencies ["External Dependencies"]
@@ -361,14 +362,14 @@ flowchart LR
 
 #### 3.4.1. Backend (.NET)
 
-- **MediatR**: Triển khai CQRS và xử lý sự kiện
-- **FluentValidation**: Validation dựa trên fluent interface
-- **AutoMapper**: Mapping giữa các đối tượng
-- **FluentResults**: Xử lý kết quả với nhiều trạng thái
-- **Serilog**: Logging có cấu trúc
-- **Ardalis.Specification**: Triển khai pattern Specification
-- **EFCore.BulkExtensions**: Tối ưu các thao tác hàng loạt
-- **BCrypt.Net-Next**: Mã hóa mật khẩu
+- **MediatR**: Triển khai CQRS và xử lý sự kiện (Application Layer)
+- **FluentValidation**: Validation dựa trên fluent interface (Application Layer)
+- **AutoMapper**: Mapping giữa các đối tượng (Application Layer)
+- **FluentResults**: Xử lý kết quả với nhiều trạng thái (Application Layer)
+- **Serilog**: Logging có cấu trúc (Infrastructure layer)
+- **Ardalis.Specification**: Triển khai pattern Specification (Domain Layer)
+- **EFCore.BulkExtensions**: Tối ưu các thao tác hàng loạt trên Entity Framework Core (Infrastructure Layer)
+- **BCrypt.Net-Next**: Mã hóa mật khẩu (Identity Layer)
 - **Swashbuckle**: Tài liệu API (Swagger)
 
 > **_Chú thích:_** _Các thư viện được chọn dựa trên độ tin cậy, hiệu suất và mức độ hỗ trợ tốt từ cộng đồng._
@@ -384,12 +385,21 @@ flowchart LR
 
 > **_Chú thích:_** _Các thư viện frontend được chọn để cung cấp trải nghiệm người dùng nhất quán và hiệu suất cao._
 
+#### 3.4.3. Nuget Packages
+
+- **Domain Layer**: Ardalis.GuardClauses, MediatR.Contracts,...
+- **Application Layer**: MediatR, FluentValidation, AutoMapper, FluentResults,...
+- **Infrastructure Layer**: Serilog,...
+- **Server Layer**: Serilog.AspNetCore,...
+
+> **_Chú thích:_** _Các NuGet packages được sử dụng để mở rộng chức năng và cải thiện hiệu suất của từng layer trong kiến trúc._
+
 ### 3.5. Cấu trúc Solution
 
 ```plaintext
 📁 ZylPelox
  ├── 📁 Core
- │   ├── 📁 ZylPelox.ZPX.Domain                 // Logic nghiệp vụ cốt lõi
+ │   ├── 📁 ZPX.Domain                          // Logic nghiệp vụ cốt lõi
  │   │   ├── 📁 Entities                        // Các entity cơ bản
  │   │   ├── 📁 Aggregates                      // Các aggregate roots
  │   │   │   ├── 📁 Product
@@ -403,7 +413,7 @@ flowchart LR
  │   │   ├── 📁 Exceptions                      // Domain exceptions
  │   │   └── 📁 Services                        // Domain services
  │   │
- │   ├── 📁 ZylPelox.ZPX.Application            // Logic ứng dụng
+ │   ├── 📁 ZPX.Application                     // Logic ứng dụng
  │   │    ├── 📁 Common
  │   │    │   ├── 📁 Behaviors                  // Pipeline behaviors (validation, logging)
  │   │    │   ├── 📁 Specifications             // Query specifications
@@ -421,37 +431,40 @@ flowchart LR
  │   │    │   └── 📁 ...                        // Other features
  │   │    └── 📁 EventHandlers                  // Domain event handlers
  |   │
- │   └── 📁 ZylPelox.ZPX.SharedKernel           // Shared utilities and DTOs
+ │   └── 📁 ZPX.SharedKernel                    // Shared utilities and DTOs
  │       ├── 📁 Constants                       // Shared constants
  │       ├── 📁 Extensions                      // Extension methods
  │       └── 📁 Utilities                       // Utility classes
  │
  ├── 📁 Infrastructure
- │   ├── 📁 ZylPelox.ZPX.Infrastructure         // Dịch vụ cơ sở hạ tầng
+ │   ├── 📁 ZPX.Infrastructure                  // Dịch vụ cơ sở hạ tầng
  │   │   ├── 📁 Cache                           // Caching implementation
  │   │   ├── 📁 Email                           // Email service
  │   │   ├── 📁 FileStorage                     // File storage service
  │   │   ├── 📁 MessageBroker                   // Message broker integration
  │   │   └── 📁 ThirdPartyServices              // Third-party integrations
  │   │
- │   ├── 📁 ZylPelox.ZPX.Persistence            // Truy cập dữ liệu
+ │   ├── 📁 ZPX.Persistence                     // Truy cập dữ liệu
  │   │   ├── 📁 Configurations                  // EF Core configurations
  │   │   ├── 📁 Repositories                    // Repository implementations
- │   │   └── 📁 Migrations                      // Database migrations
+ │   │   ├── 📁 Migrations                      // Database migrations
+ │   │   └── 📁 DatabaseContext                 // Application database context
  │   │
- │   └── 📁 ZylPelox.ZPX.Identity               // Xác thực và phân quyền
+ │   └── 📁 ZPX.Identity                        // Xác thực và phân quyền
  │       ├── 📁 Models                          // Identity models
  │       ├── 📁 Services                        // Identity services
- │       └── 📁 Configurations                  // Identity configurations
+ │       ├── 📁 Configurations                  // Identity configurations
+ │       ├── 📁 Migrations                      // Database migrations
+ │       └── 📁 DatabaseContext                 // Identity database context
  │
  ├── 📁 Presentation
- │   ├── 📁 ZylPelox.ZPX.Server                 // Web API
+ │   ├── 📁 ZPX.Server                          // Web API
  │   │   ├── 📁 Controllers                     // API controllers
  │   │   ├── 📁 Filters                         // Action filters
  │   │   ├── 📁 Middleware                      // Custom middleware
  │   │   └── 📁 Configurations                  // API configurations
  │   │
- │   └── 📁 ZylPelox.ZPX.UI                     // Angular frontend
+ │   └── 📁 ZPX.UI                              // Angular frontend
  │       ├── 📁 src
  │       │   ├── 📁 app
  │       │   │   ├── 📁 core                    // Core functionality
@@ -462,9 +475,9 @@ flowchart LR
  │       └── 📁 angular.json                    // Angular configuration
  │
  └── 📁 Tests                                   // Tests
-     ├── 📁 ZylPelox.ZPX.UnitTests              // Unit tests
-     ├── 📁 ZylPelox.ZPX.IntegrationTests       // Integration tests
-     └── 📁 ZylPelox.ZPX.E2ETests               // End-to-end tests
+     ├── 📁 ZPX.UnitTests                       // Unit tests
+     ├── 📁 ZPX.IntegrationTests                // Integration tests
+     └── 📁 ZPX.E2ETests                        // End-to-end tests
 ```
 
 > _**Chú thích:**_ _Cấu trúc tuân theo Clean Architecture, phụ thuộc hướng vào Core._
@@ -687,27 +700,27 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
 - **API Documentation**: Tích hợp Swagger/OpenAPI, ví dụ request/response, changelog.
 - **Controller Example**:
 
-    ```csharp
-    [ApiController]
-    [Route("api/v1/[controller]")]
-    public class ProductsController : ControllerBase // Kế thừa từ ControllerBase hoặc BaseApiController tùy chỉnh
-    {
-        private readonly IMediator _mediator; // Hoặc ISender/IPublisher
+  ```csharp
+  [ApiController]
+  [Route("api/v1/[controller]")]
+  public class ProductsController : ControllerBase // Kế thừa từ ControllerBase hoặc BaseApiController tùy chỉnh
+  {
+      private readonly IMediator _mediator; // Hoặc ISender/IPublisher
 
-        public ProductsController(IMediator mediator) => _mediator = mediator;
+      public ProductsController(IMediator mediator) => _mediator = mediator;
 
-        [HttpGet]
-        [ProducesResponseType(typeof(PaginatedList<ProductDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProducts([FromQuery] GetProductsQuery query)
-        {
-            var result = await _mediator.Send(query);
-            // Có thể thêm xử lý lỗi chung hoặc trả về Ok trực tiếp nếu dùng middleware/filter
-            return Ok(result);
-        }
+      [HttpGet]
+      [ProducesResponseType(typeof(PaginatedList<ProductDto>), StatusCodes.Status200OK)]
+      public async Task<IActionResult> GetProducts([FromQuery] GetProductsQuery query)
+      {
+          var result = await _mediator.Send(query);
+          // Có thể thêm xử lý lỗi chung hoặc trả về Ok trực tiếp nếu dùng middleware/filter
+          return Ok(result);
+      }
 
-        // ... các endpoints khác (GET by Id, POST, PUT, DELETE) với xử lý lỗi và trả về ActionResult phù hợp
-    }
-    ```
+      // ... các endpoints khác (GET by Id, POST, PUT, DELETE) với xử lý lỗi và trả về ActionResult phù hợp
+  }
+  ```
 
 ### 4.4. Database Design
 
@@ -855,12 +868,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 - Indexing phù hợp, Batch operations (BulkExtensions), Tối ưu truy vấn đọc (CQRS), Tránh N+1 problem (Eager/Explicit loading).
 
-### 4.5. Frontend Architecture (`ZylPelox.ZPX.UI`)
+### 4.5. Frontend Architecture (`ZPX.UI`)
 
 - **Terminal**:
 
   ```terminal
-  ng new zylpelox-zpx-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZylPelox.ZPX.UI
+  ng new zpx-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZPX.UI
   ```
 
 - **Cấu trúc**: Core Module, Shared Module, Feature Modules (lazy-loaded).
@@ -901,13 +914,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 - **Name Static class**: [ProjectName]ServiceRegistration.cs
 - **Register Services**: Use `IServiceCollection` to register all services, repositories, and configurations.
-
-### 5.6. Nuget Package
-
-- **Domain Layer**: Ardalis.GuardClauses, MediatR.Contracts,...
-- **Application Layer**: MediatR, FluentValidation, AutoMapper, FluentResults,...
-- **Infrastructure Layer**: Serilog,...
-- **Server Layer**: Serilog.AspNetCore,...
 
 ---
 
@@ -987,9 +993,9 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 ### Team Capacity
 
--   Total capacity: [X] story points
--   Reserved for bugs/support: [Y] story points
--   Available for new features: [Z] story points
+- Total capacity: [X] story points
+- Reserved for bugs/support: [Y] story points
+- Available for new features: [Z] story points
 
 ### Committed User Stories
 
@@ -1007,13 +1013,13 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 ### Definition of Done
 
--   [ ] Code reviewed by at least 1 peer
--   [ ] Unit tests written and passing (coverage > 80%)
--   [ ] Integration tests passing
--   [ ] Documentation updated
--   [ ] No SonarLint critical/major issues
--   [ ] Deployed to staging environment
--   [ ] Acceptance criteria verified by PO
+- [ ] Code reviewed by at least 1 peer
+- [ ] Unit tests written and passing (coverage > 80%)
+- [ ] Integration tests passing
+- [ ] Documentation updated
+- [ ] No SonarLint critical/major issues
+- [ ] Deployed to staging environment
+- [ ] Acceptance criteria verified by PO
 ```
 
 ### Risk Management Matrix
@@ -1055,29 +1061,29 @@ R = Responsible, A = Accountable, C = Consulted, I = Informed
 
 ### Daily
 
--   **Stand-up Meeting**: 9:30 AM (15 min)
-    -   Format: What I did, What I'll do, Blockers
-    -   Platform: MS Teams/Zoom
+- **Stand-up Meeting**: 9:30 AM (15 min)
+  - Format: What I did, What I'll do, Blockers
+  - Platform: MS Teams/Zoom
 
 ### Weekly
 
--   **Sprint Review** (End of Sprint): Friday 2:00 PM (1 hour)
--   **Sprint Retrospective**: Friday 3:30 PM (45 min)
--   **Sprint Planning**: Monday 10:00 AM (2 hours)
--   **Technical Sync**: Wednesday 2:00 PM (30 min)
+- **Sprint Review** (End of Sprint): Friday 2:00 PM (1 hour)
+- **Sprint Retrospective**: Friday 3:30 PM (45 min)
+- **Sprint Planning**: Monday 10:00 AM (2 hours)
+- **Technical Sync**: Wednesday 2:00 PM (30 min)
 
 ### Bi-weekly
 
--   **Stakeholder Update**: Every other Thursday 3:00 PM
--   **Architecture Review**: Every other Tuesday 2:00 PM
+- **Stakeholder Update**: Every other Thursday 3:00 PM
+- **Architecture Review**: Every other Tuesday 2:00 PM
 
 ### Communication Channels
 
--   **Urgent Issues**: Phone/SMS
--   **Daily Communication**: Slack/Teams
--   **Documentation**: Confluence/Wiki
--   **Code Review**: GitHub/GitLab
--   **Task Tracking**: Jira/Azure DevOps
+- **Urgent Issues**: Phone/SMS
+- **Daily Communication**: Slack/Teams
+- **Documentation**: Confluence/Wiki
+- **Code Review**: GitHub/GitLab
+- **Task Tracking**: Jira/Azure DevOps
 ```
 
 ## 7.5. Quality Metrics & KPIs
@@ -1086,49 +1092,49 @@ R = Responsible, A = Accountable, C = Consulted, I = Informed
 
 ```yaml
 quality_metrics:
-    code_quality:
-        - metric: Code Coverage
-          target: "> 80%"
-          measurement: "SonarQube"
-        - metric: Technical Debt Ratio
-          target: "< 5%"
-          measurement: "SonarQube"
-        - metric: Duplicated Lines
-          target: "< 3%"
-          measurement: "SonarQube"
+  code_quality:
+    - metric: Code Coverage
+      target: "> 80%"
+      measurement: "SonarQube"
+    - metric: Technical Debt Ratio
+      target: "< 5%"
+      measurement: "SonarQube"
+    - metric: Duplicated Lines
+      target: "< 3%"
+      measurement: "SonarQube"
 
-    performance:
-        - metric: API Response Time (P95)
-          target: "< 200ms"
-          measurement: "Application Insights"
-        - metric: Page Load Time
-          target: "< 3s"
-          measurement: "Google PageSpeed"
-        - metric: Database Query Time (P95)
-          target: "< 100ms"
-          measurement: "SQL Profiler"
+  performance:
+    - metric: API Response Time (P95)
+      target: "< 200ms"
+      measurement: "Application Insights"
+    - metric: Page Load Time
+      target: "< 3s"
+      measurement: "Google PageSpeed"
+    - metric: Database Query Time (P95)
+      target: "< 100ms"
+      measurement: "SQL Profiler"
 
-    reliability:
-        - metric: Uptime
-          target: "> 99.9%"
-          measurement: "Pingdom/UptimeRobot"
-        - metric: Error Rate
-          target: "< 0.1%"
-          measurement: "Application Insights"
-        - metric: Mean Time To Recovery (MTTR)
-          target: "< 30 minutes"
-          measurement: "Incident Reports"
+  reliability:
+    - metric: Uptime
+      target: "> 99.9%"
+      measurement: "Pingdom/UptimeRobot"
+    - metric: Error Rate
+      target: "< 0.1%"
+      measurement: "Application Insights"
+    - metric: Mean Time To Recovery (MTTR)
+      target: "< 30 minutes"
+      measurement: "Incident Reports"
 
 business_metrics:
-    - metric: Sprint Velocity
-      target: "Stable or increasing"
-      measurement: "Jira/Azure DevOps"
-    - metric: Defect Escape Rate
-      target: "< 5%"
-      measurement: "Bug tracking system"
-    - metric: Customer Satisfaction (CSAT)
-      target: "> 4.5/5"
-      measurement: "User surveys"
+  - metric: Sprint Velocity
+    target: "Stable or increasing"
+    measurement: "Jira/Azure DevOps"
+  - metric: Defect Escape Rate
+    target: "< 5%"
+    measurement: "Bug tracking system"
+  - metric: Customer Satisfaction (CSAT)
+    target: "> 4.5/5"
+    measurement: "User surveys"
 ```
 
 ## 7.6. Release Management
@@ -1140,28 +1146,28 @@ business_metrics:
 
 ### Pre-Release (1 week before)
 
--   [ ] Feature freeze announced
--   [ ] All features code complete
--   [ ] Integration tests passing
--   [ ] Performance testing completed
--   [ ] Security scan completed
--   [ ] Release notes drafted
+- [ ] Feature freeze announced
+- [ ] All features code complete
+- [ ] Integration tests passing
+- [ ] Performance testing completed
+- [ ] Security scan completed
+- [ ] Release notes drafted
 
 ### Release Day
 
--   [ ] Final regression testing
--   [ ] Database migration scripts tested
--   [ ] Rollback plan documented
--   [ ] Monitoring alerts configured
--   [ ] Communication sent to stakeholders
+- [ ] Final regression testing
+- [ ] Database migration scripts tested
+- [ ] Rollback plan documented
+- [ ] Monitoring alerts configured
+- [ ] Communication sent to stakeholders
 
 ### Post-Release
 
--   [ ] Smoke tests on production
--   [ ] Monitor error rates (first 24 hours)
--   [ ] Gather user feedback
--   [ ] Document lessons learned
--   [ ] Update documentation
+- [ ] Smoke tests on production
+- [ ] Monitor error rates (first 24 hours)
+- [ ] Gather user feedback
+- [ ] Document lessons learned
+- [ ] Update documentation
 ```
 
 ### Version Numbering Strategy
@@ -1212,44 +1218,44 @@ public async Task<OrderProcessingResult> ProcessOrderAsync(
 ```yaml
 openapi: 3.0.3
 info:
-    title: ZylPelox API
-    version: 1.0.0
-    description: |
-        # Introduction
-        ZylPelox API provides comprehensive e-commerce functionality.
+  title: ZylPelox API
+  version: 1.0.0
+  description: |
+    # Introduction
+    ZylPelox API provides comprehensive e-commerce functionality.
 
-        ## Authentication
-        Use Bearer token authentication. Obtain token via /auth/login endpoint.
+    ## Authentication
+    Use Bearer token authentication. Obtain token via /auth/login endpoint.
 
-        ## Rate Limiting
-        - Anonymous: 100 requests/hour
-        - Authenticated: 1000 requests/hour
+    ## Rate Limiting
+    - Anonymous: 100 requests/hour
+    - Authenticated: 1000 requests/hour
 
-        ## Pagination
-        Use `pageNumber` and `pageSize` query parameters.
+    ## Pagination
+    Use `pageNumber` and `pageSize` query parameters.
 
 paths:
-    /api/v1/products:
-        get:
-            summary: Get products list
-            operationId: getProducts
-            tags:
-                - Products
-            parameters:
-                - $ref: "#/components/parameters/PageNumber"
-                - $ref: "#/components/parameters/PageSize"
-                - name: categoryId
-                  in: query
-                  schema:
-                      type: string
-                      format: uuid
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/ProductListResponse"
+  /api/v1/products:
+    get:
+      summary: Get products list
+      operationId: getProducts
+      tags:
+        - Products
+      parameters:
+        - $ref: "#/components/parameters/PageNumber"
+        - $ref: "#/components/parameters/PageSize"
+        - name: categoryId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductListResponse"
 ```
 
 ## 7.8. Budget & Resource Planning
@@ -1297,24 +1303,24 @@ $329,820
 
 ### Technical Success
 
--   [ ] All critical features implemented and tested
--   [ ] Performance meets defined SLAs
--   [ ] Security audit passed with no critical issues
--   [ ] 99.9% uptime achieved in first month
+- [ ] All critical features implemented and tested
+- [ ] Performance meets defined SLAs
+- [ ] Security audit passed with no critical issues
+- [ ] 99.9% uptime achieved in first month
 
 ### Business Success
 
--   [ ] 1000+ registered users in first month
--   [ ] 100+ orders processed successfully
--   [ ] < 2% cart abandonment rate improvement
--   [ ] Positive feedback from beta users (>80% satisfaction)
+- [ ] 1000+ registered users in first month
+- [ ] 100+ orders processed successfully
+- [ ] < 2% cart abandonment rate improvement
+- [ ] Positive feedback from beta users (>80% satisfaction)
 
 ### Team Success
 
--   [ ] On-time delivery (±10% of estimated timeline)
--   [ ] Within budget (±15% of allocated budget)
--   [ ] Team satisfaction score > 4/5
--   [ ] Knowledge transfer completed
+- [ ] On-time delivery (±10% of estimated timeline)
+- [ ] Within budget (±15% of allocated budget)
+- [ ] Team satisfaction score > 4/5
+- [ ] Knowledge transfer completed
 ```
 
 ---
