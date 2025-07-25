@@ -268,16 +268,16 @@ flowchart LR
     subgraph UserFacing ["User Facing"]
         direction LR
         USERS["Users<br/>(Web/Mobile)"]
-        FRONTEND["zpx-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
+        FRONTEND["zpx-fashion-ui<br><span style='font-size:small; opacity:0.8;'>Angular SPA</span>"]
         GATEWAY["API Gateway<br><span style='font-size:small; opacity:0.8;'>Optional</span>"]
     end
 
     subgraph BackendServices ["Backend Services (ZPX System)"]
         direction TB
-        API["ZPX.Server<br/><span style='font-size:small; opacity:0.8;'>ASP.NET Core API</span>"]
-        APP["ZPX.Application<br/><span style='font-size:small; opacity:0.8;'>Business Logic, CQRS</span>"]
-        DOMAIN["ZPX.Domain<br/><span style='font-size:small; opacity:0.8;'>Entities, Core Logic</span>"]
-        INFRA["ZPX.Infrastructure<br/><span style='font-size:small; opacity:0.8;'>Implementation Details</span>"]
+        API["ZPX.Fashion.Server<br/><span style='font-size:small; opacity:0.8;'>ASP.NET Core API</span>"]
+        APP["ZPX.Fashion.Application<br/><span style='font-size:small; opacity:0.8;'>Business Logic, CQRS</span>"]
+        DOMAIN["ZPX.Fashion.Domain<br/><span style='font-size:small; opacity:0.8;'>Entities, Core Logic</span>"]
+        INFRA["ZPX.Fashion.Infrastructure<br/><span style='font-size:small; opacity:0.8;'>Implementation Details</span>"]
     end
 
     subgraph ExternalDependencies ["External Dependencies"]
@@ -399,7 +399,7 @@ flowchart LR
 ```plaintext
 📁 ZylPelox
  ├── 📁 Core
- │   ├── 📁 ZPX.Domain                          // Logic nghiệp vụ cốt lõi
+ │   ├── 📁 ZPX.Fashion.Domain                  // Logic nghiệp vụ cốt lõi
  │   │   ├── 📁 Entities                        // Các entity cơ bản
  │   │   ├── 📁 Aggregates                      // Các aggregate roots
  │   │   │   ├── 📁 Product
@@ -413,7 +413,7 @@ flowchart LR
  │   │   ├── 📁 Exceptions                      // Domain exceptions
  │   │   └── 📁 Services                        // Domain services
  │   │
- │   ├── 📁 ZPX.Application                     // Logic ứng dụng
+ │   ├── 📁 ZPX.Fashion.Application             // Logic ứng dụng
  │   │    ├── 📁 Common
  │   │    │   ├── 📁 Behaviors                  // Pipeline behaviors (validation, logging)
  │   │    │   ├── 📁 Specifications             // Query specifications
@@ -431,26 +431,26 @@ flowchart LR
  │   │    │   └── 📁 ...                        // Other features
  │   │    └── 📁 EventHandlers                  // Domain event handlers
  |   │
- │   └── 📁 ZPX.SharedKernel                    // Shared utilities and DTOs
+ │   └── 📁 ZPX.Fashion.SharedKernel            // Shared utilities and DTOs
  │       ├── 📁 Constants                       // Shared constants
  │       ├── 📁 Extensions                      // Extension methods
  │       └── 📁 Utilities                       // Utility classes
  │
  ├── 📁 Infrastructure
- │   ├── 📁 ZPX.Infrastructure                  // Dịch vụ cơ sở hạ tầng
+ │   ├── 📁 ZPX.Fashion.Infrastructure          // Dịch vụ cơ sở hạ tầng
  │   │   ├── 📁 Cache                           // Caching implementation
  │   │   ├── 📁 Email                           // Email service
  │   │   ├── 📁 FileStorage                     // File storage service
  │   │   ├── 📁 MessageBroker                   // Message broker integration
  │   │   └── 📁 ThirdPartyServices              // Third-party integrations
  │   │
- │   ├── 📁 ZPX.Persistence                     // Truy cập dữ liệu
+ │   ├── 📁 ZPX.Fashion.Persistence             // Truy cập dữ liệu
  │   │   ├── 📁 Configurations                  // EF Core configurations
  │   │   ├── 📁 Repositories                    // Repository implementations
  │   │   ├── 📁 Migrations                      // Database migrations
  │   │   └── 📁 DatabaseContext                 // Application database context
  │   │
- │   └── 📁 ZPX.Identity                        // Xác thực và phân quyền
+ │   └── 📁 ZPX.Fashion.Identity                // Xác thực và phân quyền
  │       ├── 📁 Models                          // Identity models
  │       ├── 📁 Services                        // Identity services
  │       ├── 📁 Configurations                  // Identity configurations
@@ -458,13 +458,13 @@ flowchart LR
  │       └── 📁 DatabaseContext                 // Identity database context
  │
  ├── 📁 Presentation
- │   ├── 📁 ZPX.Server                          // Web API
+ │   ├── 📁 ZPX.Fashion.Server                  // Web API
  │   │   ├── 📁 Controllers                     // API controllers
  │   │   ├── 📁 Filters                         // Action filters
  │   │   ├── 📁 Middleware                      // Custom middleware
  │   │   └── 📁 Configurations                  // API configurations
  │   │
- │   └── 📁 ZPX.UI                              // Angular frontend
+ │   └── 📁 ZPX.Fashion.UI (zpx-fashion-ui)     // Angular frontend
  │       ├── 📁 src
  │       │   ├── 📁 app
  │       │   │   ├── 📁 core                    // Core functionality
@@ -475,9 +475,9 @@ flowchart LR
  │       └── 📁 angular.json                    // Angular configuration
  │
  └── 📁 Tests                                   // Tests
-     ├── 📁 ZPX.UnitTests                       // Unit tests
-     ├── 📁 ZPX.IntegrationTests                // Integration tests
-     └── 📁 ZPX.E2ETests                        // End-to-end tests
+     ├── 📁 ZPX.Fashion.UnitTests               // Unit tests
+     ├── 📁 ZPX.Fashion.IntegrationTests        // Integration tests
+     └── 📁 ZPX.Fashion.E2ETests                // End-to-end tests
 ```
 
 > _**Chú thích:**_ _Cấu trúc tuân theo Clean Architecture, phụ thuộc hướng vào Core._
@@ -681,6 +681,13 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
 
 - **Entities & Base Classes**: `BaseEntity` (Guid Id), `BaseAuditableEntity` (thêm CreatedAt, CreatedBy, LastModifiedAt, LastModifiedBy, IsDeleted...).
 - **Aggregate Roots**: để quản lý các entity liên quan như một đơn vị nhất quán.
+  - **Product**: Product, ProductVariant, ProductCategory, ProductTag...
+  - **Order**: Order, OrderItem, OrderStatus...
+  - **Customer**: Customer, Address...
+  - **Inventory**: Inventory, Warehouse, InventoryHistory...
+  - **Identity**: User, Role...
+  - **Marketing**: Discount, Coupon...
+  - **Review**: ProductReview...
 - **Junction/Intermediate Entities**: ProductCategory, ProductTag, OrderDiscount... (quản lý quan hệ N-N).
 - **Value Objects**: Money, Address, DateRange, ContactInformation... (bất biến, định nghĩa bởi thuộc tính).
 - **Domain Services**: OrderProcessingService, PricingService... (chứa logic nghiệp vụ phức tạp không thuộc entity nào).
@@ -868,12 +875,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
 - Indexing phù hợp, Batch operations (BulkExtensions), Tối ưu truy vấn đọc (CQRS), Tránh N+1 problem (Eager/Explicit loading).
 
-### 4.5. Frontend Architecture (`ZPX.UI`)
+### 4.5. Frontend Architecture (`ZPX.Fashion.UI`)
 
 - **Terminal**:
 
   ```terminal
-  ng new zpx-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZPX.UI
+  ng new zpx-fashion-ui --routing --style=scss --skip-git --package-manager=npm --directory=src/Presentation/ZPX.Fashion.UI
   ```
 
 - **Cấu trúc**: Core Module, Shared Module, Feature Modules (lazy-loaded).
